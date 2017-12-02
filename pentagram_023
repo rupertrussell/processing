@@ -5,9 +5,15 @@ The Chaos Game
  Dec 02 2017
  Thanks to Wikipedia https://en.wikipedia.org/wiki/Chaos_game
  
- A point inside a pentagon repeatedly jumps half of the distance towards a randomly chosen vertex, 
- but the currently chosen vertex cannot be 1 or 4 places, respectively away from the two previously 
- chosen vertices. 
+ 
+ Note: I am aiming to implement the following algorithm:
+ 
+   A point inside a pentagon repeatedly jumps half of the distance towards a randomly chosen vertex, 
+   but the currently chosen vertex cannot be 1 or 4 places, respectively away from the two previously 
+   chosen vertices. 
+ 
+  I have not arrived there yet but along the way I stumbled upon this which I quite like.
+ 
  
  */
 
@@ -246,7 +252,7 @@ void draw() {
   itter ++;
   counter ++;
   if (counter == 60000) {
-    save("pent20_" + itter + ".png");
+    save("pent23_" + itter + ".png");
     counter = 0;
   }
 
@@ -254,5 +260,5 @@ void draw() {
 }
 
 void keyPressed() {
-  save("pent16_key_" + itter + ".png");
+  save("pent23_key_" + itter + ".png");
 }
