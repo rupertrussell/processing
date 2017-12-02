@@ -1,0 +1,258 @@
+/*
+The Chaos Game
+ 
+ by Rupert Russell
+ Dec 02 2017
+ Thanks to Wikipedia https://en.wikipedia.org/wiki/Chaos_game
+ 
+ A point inside a pentagon repeatedly jumps half of the distance towards a randomly chosen vertex, 
+ but the currently chosen vertex cannot be 1 or 4 places, respectively away from the two previously 
+ chosen vertices. 
+ 
+ */
+
+
+//https://math.stackexchange.com/questions/260096/find-the-coordinates-of-a-point-on-a-circle
+
+int previouslyChosenVertex1 = 0; 
+int previouslyChosenVertex2 = 0;
+
+int currentRandomlyChosenVertex = 0;
+
+float floatRandomNumber = 0;
+
+int itter = 0;
+int counter = 0;
+
+int scale = 400;  // Scale of Pentagram
+int size = 4;  // size of red dots
+
+//calculate X & Y coordinates for each point on the pentagram
+float aX = cos(radians(-90 + (360/5 * 0))) * scale;
+
+float aY = sin(radians(-90 + (360/5 * 0))) * scale;
+
+float bX = cos(radians(-90 + (360/5 * 1))) * scale;
+float bY = sin(radians(-90 + (360/5 * 1))) * scale;
+
+float cX = cos(radians(-90 + (360/5 * 2))) * scale;
+float cY = sin(radians(-90 + (360/5 * 2))) * scale;
+
+float dX = cos(radians(-90 + (360/5 * 3))) * scale;
+float dY = sin(radians(-90 + (360/5 * 3))) * scale;
+
+float eX = cos(radians(-90 + (360/5 * 4))) * scale;
+float eY = sin(radians(-90 + (360/5 * 4))) * scale;
+
+boolean firstPoint = true;
+boolean tryAgain = true;
+
+float oldX;
+float oldY;
+
+float newX;
+float newY;
+
+void setup() {
+  background(255); 
+  size(900, 900);
+  smooth();
+
+  stroke(255, 0, 0);
+  fill(255, 0, 0);
+
+  // Move points of the Pentagram into the center of the screen
+  aX = aX + width / 2;
+  aY = aY + width / 2;
+  bX = bX + width / 2;
+  bY = bY + width / 2;
+  cX = cX + width / 2;
+  cY = dY + width / 2;
+  dX = dX + width / 2;
+  dY = dY + width / 2;
+  eX = eX + width / 2;
+  eY = eY + width / 2;
+
+
+  ///*
+  // Plot the 5 points of the pentagram
+  ellipse(aX, aY, size, size);
+  ellipse(bX, bY, size, size);
+  ellipse(cX, cY, size, size);
+  ellipse(dX, dY, size, size);
+  ellipse(eX, eY, size, size);
+  //*/
+
+  println("aX = " + aX);
+  println("aY = " + aY);
+
+  strokeWeight(1); 
+  stroke(0);
+  fill(0);
+}
+
+// Repeat
+void draw() {
+
+
+  if (firstPoint == true) {
+    println("firstPoint = True");
+    oldX = width/2;
+    oldY = height/2;
+
+    firstPoint = false;
+    println("firstPoint = False");
+
+    previouslyChosenVertex1 = 1; 
+    previouslyChosenVertex2 = 2;
+  }
+
+  // Pick a random Vertex
+  // Generate a random integer number between 1 - 5
+  floatRandomNumber = random(5);
+  currentRandomlyChosenVertex = int(floatRandomNumber) + 1;
+  println("Just Generated currentRandomlyChosenVertex: " + currentRandomlyChosenVertex);
+  println("Current previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+  println("Current previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+
+  // Test if currently chosen vertex is 1 or 4 places, respectively away from the two previously chosen vertices
+
+  if ((currentRandomlyChosenVertex == 1) && (previouslyChosenVertex1 != 2) && (previouslyChosenVertex1 != 5)) {
+    newX = (oldX + aX) /2;
+    newY = (oldY + aY) /2;
+    point(newX, newY);
+    oldX = newX;
+    oldY = newY;
+
+    println(" ");
+    println(" ");
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println("Vertex 1");
+    println("((currentRandomlyChosenVertex == 1) && (previouslyChosenVertex1 != 2) && (previouslyChosenVertex1 != 5))");
+    println("currentRandomlyChosenVertex = " +  currentRandomlyChosenVertex);
+    println("Current previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Current previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    previouslyChosenVertex2 = previouslyChosenVertex1; 
+    previouslyChosenVertex1 = currentRandomlyChosenVertex;
+    println("Updated previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Updated previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println(" ");
+    println(" ");
+    println(" ");
+  }
+
+  if ((currentRandomlyChosenVertex == 2) && (previouslyChosenVertex1 != 3)  &&  (previouslyChosenVertex1 != 1)) {
+    newX = (oldX + bX) /2;
+    newY = (oldY + bY) /2;
+    point(newX, newY);
+    oldX = newX;
+    oldY = newY;
+    println(" ");
+    println(" ");
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println("Vertex 2");
+    println("((currentRandomlyChosenVertex == 2) && (previouslyChosenVertex1 != 3)  &&  (previouslyChosenVertex1 != 1))");
+    println("currentRandomlyChosenVertex = " +  currentRandomlyChosenVertex);
+    println("Current previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Current previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    previouslyChosenVertex2 = previouslyChosenVertex1; 
+    previouslyChosenVertex1 = currentRandomlyChosenVertex;
+    println("Updated previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Updated previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println(" ");
+    println(" ");
+    println(" ");
+  }
+
+  if ((currentRandomlyChosenVertex == 3) && (previouslyChosenVertex1 != 4) && (previouslyChosenVertex1 != 2)) {
+    newX = (oldX + cX) /2;
+    newY = (oldY + cY) /2;
+    point(newX, newY);
+    oldX = newX;
+    oldY = newY;
+
+    println(" ");
+    println(" ");
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println("Vertex 3");
+    println("((currentRandomlyChosenVertex == 3) && (previouslyChosenVertex1 != 4) && (previouslyChosenVertex1 != 2))");
+    println("currentRandomlyChosenVertex = " +  currentRandomlyChosenVertex);
+    println("Current previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Current previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    previouslyChosenVertex2 = previouslyChosenVertex1; 
+    previouslyChosenVertex1 = currentRandomlyChosenVertex;
+    println("Updated previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Updated previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println(" ");
+    println(" ");
+    println(" ");
+  }
+
+  if ((currentRandomlyChosenVertex == 4) && (previouslyChosenVertex1 != 5) && (previouslyChosenVertex1 != 3)) {
+    newX = (oldX + dX) /2;
+    newY = (oldY + dY) /2;
+    point(newX, newY);
+    oldX = newX;
+    oldY = newY;
+
+    println(" ");
+    println(" ");
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println("Vertex 4");
+    println("((currentRandomlyChosenVertex == 4) && (previouslyChosenVertex1 != 5) && (previouslyChosenVertex1 != 3))");
+    println("currentRandomlyChosenVertex = " +  currentRandomlyChosenVertex);
+    println("Current previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Current previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    previouslyChosenVertex2 = previouslyChosenVertex1; 
+    previouslyChosenVertex1 = currentRandomlyChosenVertex;
+    println("Updated previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Updated previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println(" ");
+    println(" ");
+  }
+
+  if ((currentRandomlyChosenVertex == 5) && (previouslyChosenVertex1 != 1) && (previouslyChosenVertex1 != 4)) {
+    newX = (oldX + eX) /2;
+    newY = (oldY + eY) /2;
+    point(newX, newY);
+    oldX = newX;
+    oldY = newY;
+
+    println(" ");
+    println(" ");
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println("Vertex 5");
+    println("((currentRandomlyChosenVertex == 5) && (previouslyChosenVertex1 != 1) && (previouslyChosenVertex1 != 4))");
+    println("currentRandomlyChosenVertex = " +  currentRandomlyChosenVertex);
+    println("Current previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Current previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    previouslyChosenVertex2 = previouslyChosenVertex1; 
+    previouslyChosenVertex1 = currentRandomlyChosenVertex;
+    println("Updated previouslyChosenVertex1 = " +  previouslyChosenVertex1);
+    println("Updated previouslyChosenVertex2 = " +  previouslyChosenVertex2);
+    println("----------------------------------------------------------------------------------------------------------- ");
+    println(" ");
+    println(" ");
+  }
+
+  tryAgain = true;
+  println("tryAgain = " + tryAgain);
+
+  itter ++;
+  counter ++;
+  if (counter == 60000) {
+    save("pent20_" + itter + ".png");
+    counter = 0;
+  }
+
+  println("itter = " + itter);
+}
+
+void keyPressed() {
+  save("pent16_key_" + itter + ".png");
+}
